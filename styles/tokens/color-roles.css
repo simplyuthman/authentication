@@ -1,0 +1,45 @@
+/**
+ * COLOR ROLES (SEMANTIC)
+ * USE THESE IN UI COMPONENTS.
+ */
+:root {
+  /* --- Primary Roles --- */
+  --color-primary: var(--primitive-color-key-primary); /* primitives colors.key color group.primary key color */
+  --color-on-primary: var(--primitive-color-primary-100); /* primitives colors.primary color palette.primary100 */
+  --color-primary-container: var(--primitive-color-primary-90); /* primitives colors.primary color palette.primary90 */
+  --color-on-primary-container: var(--primitive-color-primary-30); /* primitives colors.primary color palette.primary30 */
+
+  /* --- Secondary Roles --- */
+  --color-secondary: var(--primitive-color-key-secondary); /* primitives colors.key color group.secondary key color */
+  --color-on-secondary: var(--primitive-color-secondary-100); /* primitives colors.secondary color palette.secondary100 */
+  --color-secondary-container: var(--primitive-color-secondary-90); /* primitives colors.secondary color palette.secondary90 */
+  --color-on-secondary-container: var(--primitive-color-secondary-30); /* primitives colors.secondary color palette.secondary30 */
+
+  /* --- Tertiary Roles --- */
+  --color-tertiary: var(--primitive-color-key-tertiary); /* primitives colors.key color group.tertiary key color */
+  --color-on-tertiary: var(--primitive-color-tertiary-100); /* primitives colors.tertiary color palette.tertiary100 */
+  --color-tertiary-container: var(--primitive-color-tertiary-90); /* primitives colors.tertiary color palette.tertiary90 */
+  --color-on-tertiary-container: var(--primitive-color-tertiary-30); /* primitives colors.tertiary color palette.tertiary30 */
+
+  /* --- Error & Feedback Roles --- */
+  --color-error: var(--primitive-color-key-error); /* primitives colors.key color group.error key color */
+  --color-on-error: var(--primitive-color-error-100); /* primitives colors.error color palette.error100 */
+  --color-error-container: var(--primitive-color-error-90); /* primitives colors.error color palette.error90 */
+  --color-on-error-container: var(--primitive-color-error-30); /* primitives colors.error color palette.error30 */
+
+  /* --- Surface & Background Roles --- */
+  --color-surface-color: var(--primitive-color-neutral-98); /* primitives colors.neutral color palette.neutral98 */
+  --color-surface: var(--color-surface-color);
+  --color-on-surface: var(--primitive-color-neutral-10); /* primitives colors.neutral color palette.neutral10 */
+  --color-surface-variant: var(--primitive-color-neutral-variant-90); /* primitives colors.neutral variant color palette.neutralvariant90 */
+  --color-on-surface-variant: var(--primitive-color-neutral-variant-30); /* primitives colors.neutral variant color palette.neutralvariant30 */
+  --color-surface-container-highest: var(--primitive-color-neutral-90); /* primitives colors.neutral color palette.neutral90 */
+  --color-surface-container-high: var(--primitive-color-neutral-90); /* primitives colors.neutral color palette.neutral90 */
+  --color-surface-container: var(--primitive-color-neutral-95); /* primitives colors.neutral color palette.neutral95 */
+  --color-surface-container-low: var(--primitive-color-neutral-98); /* primitives colors.neutral color palette.neutral98 */
+  --color-surface-container-lowest: var(--primitive-color-neutral-100); /* primitives colors.neutral color palette.neutral100 */
+  --color-inverse-surface: var(--primitive-color-neutral-20); /* primitives colors.neutral color palette.neutral20 */
+  --color-inverse-on-surface: var(--primitive-color-neutral-95); /* primitives colors.neutral color palette.neutral95 */
+  --color-surface-tint: var(--primitive-color-primary-40); /* primitives colors.primary color palette.primary40 */
+
+}

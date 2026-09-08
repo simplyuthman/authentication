@@ -1,0 +1,95 @@
+// =============================================================================
+// Prisma Schema — Authentication Slice
+// Source of truth: PRD §9 and .agents/rules/04-data-model.md
+//
+// LOCKED: Exactly five models. Do not add, remove, or rename any model or any
+// field that carries an inline comment without flagging the change first.
+// Every inline comment documents WHY the field exists — preserve the behaviour
+// the comment describes, not just the field name.
+// =============================================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------------------
+// User
+// ---------------------------------------------------------------------------
+model User {
+  id               String    @id @default(cuid())
+  fullName         String?   // User's full name from registration
+  email            String    @unique // Requirement 8: DB-level uniqueness — not app-level check-then-insert
+  passwordHash     String    // bcrypt hash only; plaintext password is NEVER stored or logged
+  emailVerifiedAt  DateTime? // null = unverified; a timestamp (not a boolean) also records WHEN verification happened
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  sessions            Session[]
+  verificationCodes   VerificationCode[]
+  passwordResetTokens PasswordResetToken[]
+
+  @@index([email]) // explicit index alongside @unique for clarity of intent on the hot lookup path
+}
+
+// ---------------------------------------------------------------------------
+// Session
+// ---------------------------------------------------------------------------
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime // fixed 7-day lifetime set at creation; NOT extended on activity (see PRD §13 Open Question)
+  createdAt DateTime @default(now())
+
+  @@index([userId])    // supports "revoke all sessions for user" and per-user lookups
+  @@index([expiresAt]) // supports periodic cleanup of expired sessions
+}
+
+// ---------------------------------------------------------------------------
+// VerificationCode
+// ---------------------------------------------------------------------------
+model VerificationCode {
+  id         String    @id @default(cuid())
+  userId     String
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  codeHash   String    // hash of the 6-digit code — raw code is NEVER stored; a DB read alone cannot verify
+  expiresAt  DateTime  // Requirement 5: expiry lives in the DB, independent of any UI countdown
+  consumedAt DateTime? // null = unused; set on success so a code CANNOT be replayed after verification
+  lastSentAt DateTime  @default(now()) // drives the server-side resend cooldown (Requirement 6)
+  attempts   Int       @default(0)     // failed guesses against this code; feeds brute-force detection
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+// ---------------------------------------------------------------------------
+// PasswordResetToken
+// ---------------------------------------------------------------------------
+model PasswordResetToken {
+  id        String    @id @default(cuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tokenHash String    @unique // hashed, not raw; a leaked DB row CANNOT be replayed as a live reset link
+  expiresAt DateTime  // Requirement 7: time-limited to 60 minutes
+  usedAt    DateTime? // null = unused; set atomically on redemption to enforce single-use (Requirement 7)
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+// ---------------------------------------------------------------------------
+// RateLimitAttempt
+// ---------------------------------------------------------------------------
+model RateLimitAttempt {
+  id        String   @id @default(cuid())
+  key       String   // composite "route:ip:email" key — matches Requirement 3's IP+email keying
+  route     String   // one of: signin | signup | password-reset-request | verification-resend
+  createdAt DateTime @default(now())
+
+  @@index([key, route, createdAt]) // supports the sliding-window COUNT query behind the rate-limit check
+}

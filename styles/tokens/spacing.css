@@ -1,0 +1,26 @@
+:root {
+  --spacing-no-spacing: 0px; /* 0rem */
+  --spacing-0: var(--spacing-no-spacing);
+  --spacing-none: var(--spacing-no-spacing);
+  --spacing-extra-small-spacing: 4px; /* 0.25rem */
+  --spacing-xs: var(--spacing-extra-small-spacing);
+  --spacing-4: var(--spacing-extra-small-spacing);
+  --spacing-small-spacing: 8px; /* 0.5rem */
+  --spacing-sm: var(--spacing-small-spacing);
+  --spacing-8: var(--spacing-small-spacing);
+  --spacing-medium-spacing: 12px; /* 0.75rem */
+  --spacing-md: var(--spacing-medium-spacing);
+  --spacing-12: var(--spacing-medium-spacing);
+  --spacing-base-spacing: 16px; /* 1rem */
+  --spacing-base: var(--spacing-base-spacing);
+  --spacing-16: var(--spacing-base-spacing);
+  --spacing-large-spacing: 20px; /* 1.25rem */
+  --spacing-lg: var(--spacing-large-spacing);
+  --spacing-20: var(--spacing-large-spacing);
+  --spacing-extra-large-spacing: 24px; /* 1.5rem */
+  --spacing-xl: var(--spacing-extra-large-spacing);
+  --spacing-24: var(--spacing-extra-large-spacing);
+  --spacing-very-large-spacing: 32px; /* 2rem */
+  --spacing-2xl: var(--spacing-very-large-spacing);
+  --spacing-32: var(--spacing-very-large-spacing);
+}
