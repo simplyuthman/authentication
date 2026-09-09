@@ -27,7 +27,6 @@ cp .env.example .env
 ```
 Configure the following required variables inside `.env`:
 * `DATABASE_URL`: PostgreSQL connection string. For local Docker development, use `"postgresql://postgres:postgres@localhost:5432/auth_db"`.
-* `SESSION_SECRET`: A high-entropy random secret string used for session signing and validation.
 * `SMTP_HOST`: (Optional for live delivery) SMTP server host (e.g. `smtp.gmail.com` or `sandbox.smtp.mailtrap.io`).
 * `SMTP_PORT`: (Optional) SMTP port (`465` for SSL or `587` for TLS).
 * `SMTP_USER`: (Optional) Your SMTP authentication username/email.
